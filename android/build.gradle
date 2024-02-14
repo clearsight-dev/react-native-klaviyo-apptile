@@ -50,6 +50,6 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-messaging-ktx:23.4.0'
 
-    implementation "com.github.klaviyo.klaviyo-android-sdk:analytics:1.4.1"
-    implementation "com.github.klaviyo.klaviyo-android-sdk:push-fcm:1.4.1"
+    api "com.github.klaviyo.klaviyo-android-sdk:analytics:1.4.1"
+    api "com.github.klaviyo.klaviyo-android-sdk:push-fcm:1.4.1"
 }

@@ -1,6 +1,6 @@
 {
-  "name": "@apptile-test/apptile-native-test",
-  "version": "1.1.1",
+  "name": "react-native-awesome-library",
+  "version": "1.2.0",
   "description": "React native implementation of icons.expo.fyi website. You can pick icons from a wide range of icons.",
   "homepage": "https://github.com/Grassper/react-native-icon-picker.git",
   "main": "lib/index.js",
@@ -11,7 +11,8 @@
     "android",
     "ios",
     "lib",
-    "react-native-icon-picker.podspec",
+    "react-native-awesome-library.podspec",
+    "*.podspec",
     "!android/build",
     "!.DS_Store",
     "!.gradle",
