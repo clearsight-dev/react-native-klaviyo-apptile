@@ -38,5 +38,5 @@ Pod::Spec.new do |s|
   s.source_files  = "ios/**/*.{h,m,swift}"
 
   s.dependency "React-Core"
-  s.dependency "KlaviyoSwift", "2.5.1"
+  s.dependency "KlaviyoSwift", "2.5.2"
 end
