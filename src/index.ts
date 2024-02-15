@@ -20,6 +20,10 @@ class KlaviyoRN {
     })
   }
 
+  static setExternalId = (externalId: string) => {
+    KlaviyoModule.setExternalId(externalId);
+  }
+
   static setPushToken = (token: string) => {
     if (Platform.OS === 'ios') {
       KlaviyoModule.setPushToken(token)
