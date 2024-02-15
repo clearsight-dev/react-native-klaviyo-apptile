@@ -1,4 +1,4 @@
-package com.grassper.reactnativeiconpicker
+package com.ny.reactnativeklaviyo
 
 import android.app.Application
 import android.util.Log
