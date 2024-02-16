@@ -1,17 +1,16 @@
 {
-  "name": "react-native-awesome-library",
+  "name": "react-native-klaviyo",
   "version": "1.2.0",
-  "description": "React native implementation of icons.expo.fyi website. You can pick icons from a wide range of icons.",
-  "homepage": "https://github.com/Grassper/react-native-icon-picker.git",
+  "description": "React Native wrapper for Klaviyo android and swift native SDKs for notifications.",
+  "homepage": "https://github.com/nikhilyadav06/react-native-klaviyo.git",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "author": "grassper <rishi.barath27@gmail.com>",
+  "author": "nikhilyadav06 <nikhilyadav.nnn@gmail.com>",
   "license": "MIT",
   "files": [
     "android",
     "ios",
     "lib",
-    "react-native-awesome-library.podspec",
     "*.podspec",
     "!android/build",
     "!.DS_Store",
@@ -28,10 +27,10 @@
     "!xcuserdata"
   ],
   "keywords": [
-    "React native icon picker",
-    "Expo icon picker",
-    "Android icon picker",
-    "iOS icon picker"
+    "React Native Klaviyo",
+    "Klaviyo Notifications",
+    "Android notifications",
+    "iOS notifications"
   ],
   "scripts": {
     "compile": "rm -rf lib && tsc -p .",
@@ -82,7 +81,5 @@
   "lint-staged": {
     "./src/*.{js,jsx,ts,tsx}": "eslint --fix"
   },
-  "dependencies": {
-    "@expo/vector-icons": "^12.0.5"
-  }
+  "dependencies": {}
 }

@@ -1,11 +1,11 @@
-package com.grassper.reactnativeiconpicker
+package com.ny.reactnativeklaviyo
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.ViewManager
 
-class IconPickerPackage : ReactPackage {
+class KlaviyoPackage : ReactPackage {
 
     override fun createViewManagers(reactContext: ReactApplicationContext):
             MutableList<ViewManager<*, *>> {
@@ -14,6 +14,6 @@ class IconPickerPackage : ReactPackage {
 
     override fun createNativeModules(reactContext: ReactApplicationContext):
             MutableList<NativeModule> {
-        return mutableListOf(IconPickerModule(reactContext), KlaviyoModule(reactContext))
+        return mutableListOf(KlaviyoModule(reactContext))
     }
 }
