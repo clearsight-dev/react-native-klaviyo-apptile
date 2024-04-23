@@ -24,6 +24,10 @@ class KlaviyoRN {
     KlaviyoModule.setExternalId(externalId);
   }
 
+  static setAnonymousId = (anonymousId: string) => {
+    KlaviyoModule.setAnonymousId(anonymousId)
+  }
+
   static setPushToken = (token: string) => {
     if (Platform.OS === 'ios') {
       KlaviyoModule.setPushToken(token)

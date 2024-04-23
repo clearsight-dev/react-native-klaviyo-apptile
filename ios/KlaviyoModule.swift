@@ -36,6 +36,11 @@ class KlaviyoModule: NSObject {
     }
 
     @objc
+    func setAnonymousId(_ anonymousId: String) {
+        sdk.set(profileAttribute: .anonymous_id, value: anonymousId)
+    }
+
+    @objc
     func setPushToken(_ tokenData: String) {
         sdk.set(pushToken: tokenData);
         // KlaviyoModule.shared.sdk.set(pushToken: tokenData);

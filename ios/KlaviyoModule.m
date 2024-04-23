@@ -6,6 +6,7 @@
 
 RCT_EXTERN_METHOD(initializeKlaviyoSDK:(NSString *)apiKey)
 RCT_EXTERN_METHOD(setExternalId:(NSString *)externalId)
+RCT_EXTERN_METHOD(setAnonymousId:(NSString *)anonymousId)
 RCT_EXTERN_METHOD(getExternalId:(RCTResponseSenderBlock)callback)
 RCT_EXTERN_METHOD(setPushToken:(NSString *)tokenData)
 

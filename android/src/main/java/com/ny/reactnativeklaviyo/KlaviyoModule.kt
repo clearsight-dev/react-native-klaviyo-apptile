@@ -63,6 +63,11 @@ class KlaviyoModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
         }
     }
 
+    @ReactMethod
+    fun setAnonymousId(anonymousId: String) {
+        Klaviyo.setProfileAttribute(ProfileKey.CUSTOM("anonymous_id"), anonymousId)
+    }
+
     // @ReactMethod
     // fun getExternalId(callback: Callback) {
     //     callback.invoke(Klaviyo.getExternalId())
