@@ -9,6 +9,7 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.klaviyo.analytics.Klaviyo
+import com.klaviyo.analytics.model.ProfileKey
 import com.klaviyo.pushFcm.KlaviyoPushService
 import com.google.firebase.messaging.FirebaseMessaging
 
