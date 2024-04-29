@@ -1,2 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ny.reactnativeklaviyo"></manifest>
+    package="com.ny.reactnativeklaviyo">
+<!-- 
+    <uses-sdk android:minSdkVersion="16" />
+
+    <uses-permission android:name="android.permission.INTERNET" /> -->
+
+    <application>
+        <uses-library
+            android:name="com.facebook.react"
+            android:required="true" />
+    </application>
+
+</manifest>

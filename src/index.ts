@@ -21,11 +21,21 @@ class KlaviyoRN {
   }
 
   static setExternalId = (externalId: string) => {
-    KlaviyoModule.setExternalId(externalId);
+    KlaviyoModule.setExternalId(externalId)
   }
 
-  static setAnonymousId = (anonymousId: string) => {
-    KlaviyoModule.setAnonymousId(anonymousId)
+  static identify = (userDetails: Record<string, string>) => {
+    KlaviyoModule.identify(userDetails)
+  }
+
+  static sendEvent = (
+    eventMetric: string,
+    eventData: {
+      value?: number
+      properties?: Record<string, string>
+    }
+  ) => {
+    KlaviyoModule.sendEvent(eventMetric, eventData)
   }
 
   static setPushToken = (token: string) => {

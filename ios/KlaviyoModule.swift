@@ -17,6 +17,9 @@ class KlaviyoModule: NSObject {
     public func initializeKlaviyoSDK(_ apiKey: String) {
         sdk.initialize(with: apiKey)
         // KlaviyoModule.shared.sdk.initialize(with: apiKey);
+
+        sdk.set(profileAttribute: .platform, value: "ios")
+        sdk.set(profileAttribute: .source, value: "apptile_mobile_app")
     }
 
     @objc
@@ -36,8 +39,36 @@ class KlaviyoModule: NSObject {
     }
 
     @objc
-    func setAnonymousId(_ anonymousId: String) {
-        sdk.set(profileAttribute: .anonymous_id, value: anonymousId)
+    func identify(_ userDetails: NSDictionary) {
+        if let email = userDetails["email"] as? String {
+            sdk.set(profileAttribute: .email, value: email)
+        }
+
+        if let phoneNumber = userDetails["phone_number"] as? String {
+            sdk.set(profileAttribute: .phoneNumber, value: phoneNumber)
+        }
+
+        if let firstName = userDetails["first_name"] as? String {
+            sdk.set(profileAttribute: .firstName, value: firstName)
+        }
+
+        if let lastName = userDetails["last_name"] as? String {
+            sdk.set(profileAttribute: .lastName, value: lastName)
+        }
+    }
+
+    @objc
+    func sendEvent(_ eventMetric: String, _ eventData: NSDictionary) {
+        let value: Double? = eventData["value"] as? Double
+        let properties: [String : Any]? = eventData["properties"] as? [String: Any]
+        
+        for (key, value) in properties ?? [:] {
+            properties[key] = value
+        }
+
+        let event = Event(name: .CustomEvent(eventMetric), properties: properties, value: value)
+
+        sdk.create(event: event)
     }
 
     @objc

@@ -8,10 +8,15 @@ import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
+import com.facebook.react.bridge.ReadableArray
+import com.facebook.react.bridge.ReadableMap
 import com.klaviyo.analytics.Klaviyo
 import com.klaviyo.analytics.model.ProfileKey
 import com.klaviyo.pushFcm.KlaviyoPushService
 import com.google.firebase.messaging.FirebaseMessaging
+import com.klaviyo.analytics.model.Event
+import com.klaviyo.analytics.model.EventKey
+import com.klaviyo.analytics.model.EventMetric
 
 class KlaviyoModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
@@ -31,6 +36,9 @@ class KlaviyoModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
 
         // Register for push notifications
         registerForPushNotifications()
+
+        Klaviyo.setProfileAttribute(ProfileKey.CUSTOM("platform"), "android");
+        Klaviyo.setProfileAttribute(ProfileKey.CUSTOM("source"), "apptile_mobile_app");
     }
 
     // Register for push notifications
@@ -65,8 +73,45 @@ class KlaviyoModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
     }
 
     @ReactMethod
-    fun setAnonymousId(anonymousId: String) {
-        Klaviyo.setProfileAttribute(ProfileKey.CUSTOM("anonymous_id"), anonymousId)
+    fun identify(userDetails: ReadableMap) {
+        if(userDetails.hasKey("email")) {
+            Klaviyo.setEmail(userDetails.getString("email").toString());
+        }
+
+        if(userDetails.hasKey("phone_number")) {
+            Klaviyo.setPhoneNumber(userDetails.getString("phone_number").toString());
+        }
+
+        if(userDetails.hasKey("first_name")) {
+            Klaviyo.setProfileAttribute(ProfileKey.FIRST_NAME, userDetails.getString("first_name").toString());
+        }
+
+        if(userDetails.hasKey("last_name")) {
+            Klaviyo.setProfileAttribute(
+                ProfileKey.LAST_NAME,
+                userDetails.getString("last_name").toString()
+            );
+        }
+    }
+
+    @ReactMethod
+    fun sendEvent(eventMetric: String, eventData: ReadableMap) {
+        val event = Event(eventMetric)
+
+        if(eventData.hasKey("value")) {
+            event.setValue(eventData.getDouble("value"))
+        }
+
+        if(eventData.hasKey("properties")) {
+            val properties = eventData.getMap("properties")
+            val propertyKeys = properties!!.keySetIterator()
+            while (propertyKeys.hasNextKey()) {
+                val key = propertyKeys.nextKey()
+                val value = properties.getType(key)
+
+                event.setProperty(EventKey.CUSTOM(key), value)
+            }
+        }
     }
 
     // @ReactMethod
