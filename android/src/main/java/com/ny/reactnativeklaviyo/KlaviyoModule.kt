@@ -99,7 +99,7 @@ class KlaviyoModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
         val event = Event(eventMetric)
 
         if(eventData.hasKey("value")) {
-            event.setValue(eventData.getDouble("value"))
+            event.setValue(eventData.getDouble("value").toString())
         }
 
         if(eventData.hasKey("properties")) {
