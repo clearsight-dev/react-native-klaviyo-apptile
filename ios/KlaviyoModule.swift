@@ -17,9 +17,11 @@ class KlaviyoModule: NSObject {
     public func initializeKlaviyoSDK(_ apiKey: String) {
         sdk.initialize(with: apiKey)
         // KlaviyoModule.shared.sdk.initialize(with: apiKey);
-
-        sdk.set(profileAttribute: .platform, value: "ios")
-        sdk.set(profileAttribute: .source, value: "apptile_mobile_app")
+        
+        sdk.set(profile: Profile(properties: [
+            "platform": "ios",
+            "source": "apptile_mobile_app"
+        ]))
     }
 
     @objc
@@ -41,11 +43,11 @@ class KlaviyoModule: NSObject {
     @objc
     func identify(_ userDetails: NSDictionary) {
         if let email = userDetails["email"] as? String {
-            sdk.set(profileAttribute: .email, value: email)
+            sdk.set(email: email)
         }
 
         if let phoneNumber = userDetails["phone_number"] as? String {
-            sdk.set(profileAttribute: .phoneNumber, value: phoneNumber)
+            sdk.set(phoneNumber: phoneNumber)
         }
 
         if let firstName = userDetails["first_name"] as? String {
@@ -60,10 +62,10 @@ class KlaviyoModule: NSObject {
     @objc
     func sendEvent(_ eventMetric: String, _ eventData: NSDictionary) {
         let value: Double? = eventData["value"] as? Double
-        let properties: [String : Any]? = eventData["properties"] as? [String: Any]
+        var properties: [String : Any]? = eventData["properties"] as? [String: Any]
         
         for (key, value) in properties ?? [:] {
-            properties[key] = value
+            properties?[key] = value
         }
 
         let event = Event(name: .CustomEvent(eventMetric), properties: properties, value: value)
@@ -91,6 +93,6 @@ extension KlaviyoModule: UNUserNotificationCenterDelegate {
     }
     
     public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        let handled = KlaviyoModule.shared.handle(didReceive: response, withCompletionHandler: completionHandler);
+        _ = KlaviyoModule.shared.handle(didReceive: response, withCompletionHandler: completionHandler);
     }
 }
