@@ -60,7 +60,7 @@ class KlaviyoModule: NSObject {
     }
 
     @objc
-    func sendEvent(_ eventMetric: String, _ eventData: NSDictionary) {
+    func sendEvent(_ eventMetric: String, eventData: NSDictionary) {
         let value: Double? = eventData["value"] as? Double
         var properties: [String : Any]? = eventData["properties"] as? [String: Any]
         
