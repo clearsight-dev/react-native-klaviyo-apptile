@@ -112,6 +112,8 @@ class KlaviyoModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
                 event.setProperty(EventKey.CUSTOM(key), value)
             }
         }
+
+        Klaviyo.createEvent(event)
     }
 
     // @ReactMethod
