@@ -74,7 +74,6 @@ class KlaviyoModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
 
     @ReactMethod
     fun identify(userDetails: ReadableMap) {
-        Log.d(TAG, "identify $userDetails")
 
         if(userDetails.hasKey("email")) {
             Klaviyo.setEmail(userDetails.getString("email").toString());
@@ -103,7 +102,6 @@ class KlaviyoModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
 
     @ReactMethod
     fun sendEvent(eventMetric: String, eventData: ReadableMap) {
-        Log.d(TAG, "sendEvent $eventMetric $eventData")
         val event = Event(eventMetric)
 
         if(eventData.hasKey("value")) {
