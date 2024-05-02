@@ -28,6 +28,10 @@ class KlaviyoRN {
     KlaviyoModule.identify(userDetails)
   }
 
+  static resetIdentity = () => {
+    KlaviyoModule.resetIdentity()
+  }
+
   static sendEvent = (
     eventMetric: string,
     eventData: {

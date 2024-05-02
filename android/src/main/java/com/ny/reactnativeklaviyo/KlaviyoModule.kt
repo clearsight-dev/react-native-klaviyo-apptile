@@ -10,6 +10,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
+import com.facebook.react.bridge.ReadableType
 import com.klaviyo.analytics.Klaviyo
 import com.klaviyo.analytics.model.ProfileKey
 import com.klaviyo.pushFcm.KlaviyoPushService
@@ -42,8 +43,7 @@ class KlaviyoModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
     }
 
     // Register for push notifications
-    // @ReactMethod
-    fun registerForPushNotifications() {
+    private fun registerForPushNotifications() {
         // Register KlaviyoPushService for receiving push notifications
         // application.registerService(KlaviyoPushService::class.java)
 
@@ -74,6 +74,8 @@ class KlaviyoModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
 
     @ReactMethod
     fun identify(userDetails: ReadableMap) {
+        Log.d(TAG, "identify $userDetails")
+
         if(userDetails.hasKey("email")) {
             Klaviyo.setEmail(userDetails.getString("email").toString());
         }
@@ -93,9 +95,15 @@ class KlaviyoModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
             );
         }
     }
+    
+    @ReactMethod
+    fun resetIdentity() {
+        Klaviyo.resetProfile()
+    }
 
     @ReactMethod
     fun sendEvent(eventMetric: String, eventData: ReadableMap) {
+        Log.d(TAG, "sendEvent $eventMetric $eventData")
         val event = Event(eventMetric)
 
         if(eventData.hasKey("value")) {
@@ -107,9 +115,18 @@ class KlaviyoModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
             val propertyKeys = properties!!.keySetIterator()
             while (propertyKeys.hasNextKey()) {
                 val key = propertyKeys.nextKey()
-                val value = properties.getType(key)
+                val type = properties.getType(key)
+                val value: Any? = when (type) {
+                    ReadableType.Null -> "null"
+                    ReadableType.Boolean -> properties.getBoolean(key)
+                    ReadableType.Number -> properties.getDouble(key)
+                    ReadableType.String -> properties.getString(key)
+                    ReadableType.Map -> properties.getMap(key)
+                    ReadableType.Array -> properties.getArray(key)
+                    else -> "Unsupported type"
+                }
 
-                event.setProperty(EventKey.CUSTOM(key), value)
+                event.setProperty(EventKey.CUSTOM(key), value.toString())
             }
         }
 

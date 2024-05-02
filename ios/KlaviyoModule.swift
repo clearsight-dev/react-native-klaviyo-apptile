@@ -58,6 +58,11 @@ class KlaviyoModule: NSObject {
             sdk.set(profileAttribute: .lastName, value: lastName)
         }
     }
+    
+    @objc
+    func resetIdentity() {
+        sdk.resetProfile()
+    }
 
     @objc
     func sendEvent(_ eventMetric: String, eventData: NSDictionary) {
