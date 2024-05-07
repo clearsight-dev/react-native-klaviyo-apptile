@@ -10,38 +10,18 @@ class KlaviyoModule: NSObject {
     @objc
     override init() {
         super.init()
-        // sdk = KlaviyoSDK()
     }
 
     @objc
     public func initializeKlaviyoSDK(_ apiKey: String) {
         sdk.initialize(with: apiKey)
-        // KlaviyoModule.shared.sdk.initialize(with: apiKey);
-        
-        sdk.set(profile: Profile(properties: [
-            "platform": "ios",
-            "source": "apptile_mobile_app"
-        ]))
-    }
-
-    @objc
-    func setExternalId(_ externalId: String) {
-        sdk.set(externalId: externalId);
-        // KlaviyoModule.shared.sdk.set(externalId: externalId);
-    }
-
-    @objc
-    func getExternalId(_ callback: @escaping RCTResponseSenderBlock) {
-        if let externalId = sdk.externalId {
-        // if let externalId = KlaviyoModule.shared.sdk.externalId {
-            callback([NSNull(), externalId])
-        } else {
-            callback(["External ID not found", NSNull()])
-        }
     }
 
     @objc
     func identify(_ userDetails: NSDictionary) {
+        sdk.set(profileAttribute: .custom(customKey: "platform"), value: "ios");
+        sdk.set(profileAttribute: .custom(customKey: "source"), value: "apptile_mobile_app");
+        
         if let email = userDetails["email"] as? String {
             sdk.set(email: email)
         }
@@ -81,7 +61,6 @@ class KlaviyoModule: NSObject {
     @objc
     func setPushToken(_ tokenData: String) {
         sdk.set(pushToken: tokenData);
-        // KlaviyoModule.shared.sdk.set(pushToken: tokenData);
     }
     
     func handle(didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) -> Bool {

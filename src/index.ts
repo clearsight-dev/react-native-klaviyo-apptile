@@ -7,23 +7,6 @@ class KlaviyoRN {
     KlaviyoModule.initializeKlaviyoSDK(apiKey)
   }
 
-  static getExternalId = (
-    callback: (externalId: string | null) => void
-  ): void => {
-    KlaviyoModule.getExternalId((error: any, externalId: string | null) => {
-      if (error) {
-        console.error('Error getting external ID:', error)
-        callback(null)
-      } else {
-        callback(externalId)
-      }
-    })
-  }
-
-  static setExternalId = (externalId: string) => {
-    KlaviyoModule.setExternalId(externalId)
-  }
-
   static identify = (userDetails: Record<string, string>) => {
     KlaviyoModule.identify(userDetails)
   }

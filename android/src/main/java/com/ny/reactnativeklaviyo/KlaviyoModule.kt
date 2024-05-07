@@ -37,9 +37,6 @@ class KlaviyoModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
 
         // Register for push notifications
         registerForPushNotifications()
-
-        Klaviyo.setProfileAttribute(ProfileKey.CUSTOM("platform"), "android");
-        Klaviyo.setProfileAttribute(ProfileKey.CUSTOM("source"), "apptile_mobile_app");
     }
 
     // Register for push notifications
@@ -56,24 +53,9 @@ class KlaviyoModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
     }
 
     @ReactMethod
-    fun setExternalId(externalId: String) {
-        Klaviyo.setExternalId(externalId)
-    }
-
-    @ReactMethod
-    fun getExternalId(callback: Callback) {
-        val externalId = Klaviyo.getExternalId()
-        if (externalId != null) {
-            // No error, so pass null for the error parameter, and pass the externalId as the second parameter
-            callback.invoke(null, externalId)
-        } else {
-            // Handle the scenario where externalId is null by passing an error message as the first parameter
-            callback.invoke("External ID not found", null)
-        }
-    }
-
-    @ReactMethod
     fun identify(userDetails: ReadableMap) {
+        Klaviyo.setProfileAttribute(ProfileKey.CUSTOM("platform"), "android");
+        Klaviyo.setProfileAttribute(ProfileKey.CUSTOM("source"), "apptile_mobile_app");
 
         if(userDetails.hasKey("email")) {
             Klaviyo.setEmail(userDetails.getString("email").toString());
@@ -130,25 +112,6 @@ class KlaviyoModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
 
         Klaviyo.createEvent(event)
     }
-
-    // @ReactMethod
-    // fun getExternalId(callback: Callback) {
-    //     callback.invoke(Klaviyo.getExternalId())
-    // }
-
-    // @ReactMethod
-    // fun getExternalId(promise: Promise) {
-    //     try {
-    //         val externalId = Klaviyo.getExternalId()
-    //         if (externalId != null) {
-    //             promise.resolve(externalId)
-    //         } else {
-    //             promise.reject("error", "External ID is null")
-    //         }
-    //     } catch (e: Exception) {
-    //         promise.reject("error", e.localizedMessage)
-    //     }
-    // }
 
     companion object {
         const val NAME = "KlaviyoModule"
